@@ -20,7 +20,7 @@ const benefits = [
 ]
 
 const Benefits = () => {
-    return <div className="my-10 px-4 mx-auto text-cente md:max-w-screen-md lg:max-w-screen-lg lg:px-28">
+    return <div className="my-36 px-4 mx-auto text-cente md:max-w-screen-md lg:max-w-screen-lg lg:px-28">
         <span className="font-semibold text-3xl text-gray-900 ">Benefits</span>
         <div className="text-left gap-y-8 flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
             {
