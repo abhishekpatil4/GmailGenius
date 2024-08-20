@@ -5,7 +5,9 @@ const Navbar = () => {
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">GmailGenius</span>
             </a>
             <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                <button type="button" className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Star on github</button>
+                <a href="https://github.com/abhishekpatil4/GmailGenius" target="_blank" >
+                    <button type="button" className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Star on github</button>
+                </a>
             </div>
         </div>
     </nav>
