@@ -7,12 +7,7 @@ const Hero = () => {
         <div className="my-10">
             <ActionButton displayName={"Get started"} link={"#"} />
         </div>
-        {/* <video className="w-full h-auto max-w-full" controls>
-            <source src="https://drive.google.com/file/d/1aoKGYiq5QKr037Q5A9v58JERe0aGjXiC/preview" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video> */}
-        {/* need to make this responsive */}
-        <iframe className="m-auto" src="https://drive.google.com/file/d/1aoKGYiq5QKr037Q5A9v58JERe0aGjXiC/preview" width="854" height="480" allow="autoplay"></iframe>
+        <iframe className="m-auto md:min-w-[854px] md:min-h-[480px]" src="https://www.loom.com/embed/e77253d0b2b449b2a8c3fed162413ec4?sid=e68c3937-e761-4656-8ae5-663e19815811"  allow="autoplay"></iframe>
     </>
 }
 
