@@ -1,0 +1,8 @@
+crewai
+composio-crewai
+langchain-openai
+python-dotenv
+crewai_tools
+fastapi
+uvicorn
+
