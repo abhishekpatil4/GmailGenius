@@ -7,10 +7,10 @@ const Working = () => {
                     <span className="font-semibold text-gray-900 dark:text-white">Sign up on <a href="https://composio.dev/" className="underline underline-offset-2">Composio</a></span> and link your Gmail & Sheets
                 </li>
                 <li>
-                    <span className="font-semibold text-gray-900 dark:text-white">Enter keywords</span> you want to search for in your emails
+                    <span className="font-semibold text-gray-900 dark:text-white">Enter keywords</span> you want to search for in your Gmail
                 </li>
                 <li>
-                    <span className="font-semibold text-gray-900 dark:text-white">We'll Find Emails</span> & attachments from the emails that match your keyword criteria
+                    <span className="font-semibold text-gray-900 dark:text-white">We'll Find Emails</span> & attachments from Gmail that match your keyword criteria
                 </li>
                 <li>
                     <span className="font-semibold text-gray-900 dark:text-white">Store useful information</span> from attachments in sheets
