@@ -32,7 +32,7 @@ const Fetch = () => {
                 ></textarea>
             </div>
             <div className="mb-10">
-                <label htmlFor="attributes" className="text-left block mb-2 text-lg font-medium text-gray-900 dark:text-white">Your password</label>
+                <label htmlFor="attributes" className="text-left block mb-2 text-lg font-medium text-gray-900 dark:text-white">Enter attributes you want to store in sheets</label>
                 <textarea 
                     id="attributes" 
                     rows="4" 
