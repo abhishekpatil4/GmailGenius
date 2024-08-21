@@ -21,7 +21,7 @@ const Fetch = () => {
     return (
         <form onSubmit={handleFetch} className="max-w-sm mx-auto my-24">
             <div className="mb-10">
-                <label htmlFor="emailKeywords" className="text-left block mb-2 text-lg font-medium text-gray-900 dark:text-white">Enter keywords to search for email</label>
+                <label htmlFor="emailKeywords" className="text-left block mb-2 text-lg font-medium text-gray-900 dark:text-white">Enter keywords to search for in your Gmail</label>
                 <textarea 
                     id="emailKeywords" 
                     rows="4" 
