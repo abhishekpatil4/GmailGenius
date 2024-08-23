@@ -5,4 +5,5 @@ python-dotenv
 crewai_tools
 fastapi
 uvicorn
+langchain_google_genai
 
