@@ -21,12 +21,13 @@ app.add_middleware(
 class Message(BaseModel):
     emailKeywords: str
     attributes: str
+    sheetId: str
 
 @app.post("/fetch")
 async def fetch(message: Message):
     try:
         logger.info(f"Received request with emailKeywords: {message.emailKeywords} and attributes: {message.attributes}")
-        result, status_code = run_crew(message.emailKeywords, message.attributes)
+        result, status_code = run_crew(message.emailKeywords, message.attributes, message.sheetId)
         
         logger.info(f"Agent result: {result}")
         return {"result": result}
