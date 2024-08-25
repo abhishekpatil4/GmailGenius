@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/brain.svg";
 const LogoComponent = () => {
     return <Link to="/" className="flex items-center space-x-1 rtl:space-x-reverse">
         <img src={Logo} className="logo" alt="GmailGenius logo" width={40} />
