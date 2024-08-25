@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Dropdown } from 'flowbite';
 import { logOut } from '../config/firebase';
+import { Link } from 'react-router-dom';
 const Avatar = ({ user }) => {
     useEffect(() => {
         if (user) {
@@ -34,10 +35,10 @@ const Avatar = ({ user }) => {
                 </div>
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                     <li>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                        <Link to="/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
                     </li>
                     <li>
-                        <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                        <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</Link>
                     </li>
                 </ul>
                 <div className="py-1">
