@@ -1,14 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import Fetch from "../components/Fetch";
 import { useEffect, useState } from "react";
-import SmallButton from "../components/smallButton";
 
-const Dashboard = ({ user }) => {
+const Agent = ({ user }) => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
-    const navToAgent = () => {
-        navigate("/agent");
-    }
 
     useEffect(() => {
         if (user === null) {
@@ -24,15 +20,13 @@ const Dashboard = ({ user }) => {
     }
 
     return (
-        <section className="min-h-screen bg-white dark:bg-gray-900 mt-12">
-            <div className="text-lg text-center mt-44">
-                No Triggers found...
-            </div>
-            <div className="mt-44 flex flex-col items-center m-auto">
-                <SmallButton name="Add Trigger" action={navToAgent} width="8rem"/>
+        <section className="bg-white dark:bg-gray-900 mt-12">
+            <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+                <span className="font-semibold text-3xl text-gray-900">Enter Keywords (Crisp & Concise)</span>
+                <Fetch />
             </div>
         </section>
     );
 };
 
-export default Dashboard;
+export default Agent;
