@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard";
 import ScrollToTop from "./components/ScrollToTop";
 import { useState, useEffect } from "react";
 import Login from "./pages/Login";
+import Settings from "./pages/Settings";
+import Agent from "./pages/Agent";
 
 const ProtectedRoute = ({ user, children }) => {
   if (!user) {
@@ -39,13 +41,15 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route 
-          path="/dashboard" 
+        <Route path="/Agent" element={<Agent />} />
+        <Route path="/Settings" element={<Settings />} />
+        <Route
+          path="/dashboard"
           element={
             <ProtectedRoute user={user}>
               <Dashboard user={user} />
             </ProtectedRoute>
-          } 
+          }
         />
         <Route path="/" element={<Home />} />
       </Routes>
