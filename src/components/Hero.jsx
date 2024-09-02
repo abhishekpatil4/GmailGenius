@@ -1,9 +1,11 @@
 import ActionButton from "./ActionButton";
+import WorkingFlow from "./WorkingFlow";
 
 const Hero = () => {
     return <>
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">⚡️Supercharge your Gmail</h1>
-        <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Effortlessly find emails, extract data from attachments, and organize it in a spreadsheet!</p>
+        <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-24 dark:text-gray-400">Automatically processes new emails, extracts data from attachments, and organizes everything in a spreadsheet!</p>
+        <WorkingFlow />
         <div className="my-10">
             <ActionButton displayName={"Get started"} link={"#"} />
         </div>

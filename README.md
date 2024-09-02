@@ -1,53 +1,58 @@
 
+
 # ⚡️GmailGenius: Supercharge your Gmail
-*Effortlessly find emails, extract data from attachments, and organize it in a spreadsheet*
+*Automatically processes new emails, extracts data from attachments, and organizes everything in a spreadsheet!*
 
 ## Demo
-[![Watch on Loom](https://img.shields.io/badge/Watch%20on-Loom-brightgreen?logo=loom&style=for-the-badge)](https://www.loom.com/embed/c1ff7adf304d47259f71fae09e5f738c?sid=2d11ef56-1fed-4c1d-86b4-1cb4dc449a43)
-[![Screenshot 2024-08-21 at 11 21 19 PM](https://github.com/user-attachments/assets/ab1c9158-2c2e-4ccb-8a3f-bf35a7899c21)](https://www.loom.com/embed/c1ff7adf304d47259f71fae09e5f738c?sid=2d11ef56-1fed-4c1d-86b4-1cb4dc449a43)
+### Check it out on Replit
+[![Open in Replit](https://img.shields.io/badge/Open%20in-Replit-blue?logo=replit&style=for-the-badge)](https://replit.com/@abishkpatil/gmail-assistant-fb)
+
+### Live Demo ([Live Link](https://gmail-assistant-six.vercel.app/))
+[![gmailgenius-demo](https://github.com/user-attachments/assets/abb24495-d242-42f3-8cff-599182f735f4)](https://drive.google.com/file/d/1_CWZ3yNK4pxe8Ey1bnQq4C6H_lEHDICb/preview)
 
 ## Description
 GmailGenius simplifies the process of finding relevant emails, downloading attachments, and extracting key data. Here's how it works:
 
-<img src="https://github.com/user-attachments/assets/4930cbcb-3427-48e1-8e54-9d78c769b619" alt="gmailgenius" width="600" />
-
-
-1. **Sign up on GmailGenius** and link your Gmail account and Google Sheet.
-2. **Enter keywords** you want to search for in your Gmail.
-3. **GmailGenius finds emails and attachments** from Gmail that match your keyword criteria.
+1. **Sign up on GmailGenius** and link your Gmail account and Google Sheet
+2. **Enter keywords** you want the AI agent to look for in your email
+3. **GmailGenius finds emails and attachments** from Gmail that match your keyword criteria
 4. **Useful information from the attachments is extracted and stored** in your linked Google Sheet.
 
 ### Under the hood, the AI agent divides the task into multiple steps and executes them:
 
+<img width="1664" alt="Screenshot 2024-09-02 at 12 53 53 AM" src="https://github.com/user-attachments/assets/07d51b40-dbd1-4406-9a28-942a4c1e6f86">
+
 1. **Retrieves emails from Gmail** that match the keyword/phrase criteria.
 2. **Downloads** the relevant attachments.
-3. **Extracts useful attributes** from the attachments using Nanonets.
-4. **Stores** the extracted data in the linked Google Sheet
+3. **Extracts useful attributes** from the email body & attachments.
+4. **Stores** the extracted data in the linked Google Sheet.
 
 ## Tech Stack
 - Frontend: ReactJS, Vite, TailwindCSS
 - Backend: Python, FastAPI
 - AI Agent: CrewAI, Composio, OpenAI
-
+- Composio tools: [Gmail](https://app.composio.dev/app/gmail), [Google Sheets](https://app.composio.dev/app/googlesheets)
 
 ## Run Locally
+### Setup tutorial
+[![gmailgenius-demo](https://github.com/user-attachments/assets/abb24495-d242-42f3-8cff-599182f735f4)](https://drive.google.com/file/d/1kC9oVSUatqQ6Tcs3u6CTsVsmczzG-F6k/preview)
 
 Clone the project
 
 ```bash
-  git clone https://github.com/abhishekpatil4/GmailGenius.git
+  git clone https://github.com/ComposioHQ/cookbook.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd GmailGenius
+  cd gmail-assistant/gmail-assistant-firebase
 ```
 
 ### Backend
 
 Go to backend dir & run setup script, this will create a virtual environment & download necessary libraries (Note: if you're unable to execute then grant permisson -> chmod +x setup.sh)
-You'll then be prompted to login to **Composio**, link **Gmail** & **Goole Sheets**. 
+You'll then be prompted to login to **Composio**, link **Gmail** & **Google Sheets**. 
 Add API keys in **.env file**
 
 ```bash
@@ -60,6 +65,11 @@ Start the server
   python main.py
 ```
 
+Start the agent
+
+```bash
+  python agent.py
+```
 
 ### Frontend
 
@@ -74,4 +84,17 @@ Start the server
 ```bash
   npm run dev
 ```
+
+### Composio Login
+If you're prompted to login & enter API key, run the below command to login
+
+```bash
+  composio login
+```
+
+You'll be redirected to composio website, login, get the API key and paste it
+
+## 🛡️ License
+
+Composio is licensed under the Elastic License - see the [LICENSE](https://github.com/composiodev/composio/blob/master/LICENSE) file for details.
   

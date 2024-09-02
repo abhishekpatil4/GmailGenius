@@ -5,12 +5,12 @@ const faqData = [
     {
         id: 1,
         question: "What is GmailGenius?",
-        answer: "GmailGenius is an AI-powered tool designed to enhance your email management by extracting valuable information from your Gmail account and optimizing email deliverability."
+        answer: "GmailGenius is an AI agent that integrates with your Gmail and Google Sheets. It automatically processes new emails, evaluates their relevance to your needs, extracts important information, and stores it in your Google Sheets. This streamlines your email management and organizes valuable data without manual intervention."
     },
     {
         id: 2,
-        question: "How do I sign up for GmailGenius?",
-        answer: "To sign up for GmailGenius, visit our website and click on the 'Sign Up' button. You will need to link your Gmail account to start using the features."
+        question: "How do I get started with GmailGenius?",
+        answer: "To get started with GmailGenius, click on the 'Get Started' button on our website, link your Gmail and Google Sheets accounts, configure your agent according to your preferences & lastly activate your agent to start processing emails automatically."
     },
     {
         id: 3,
@@ -25,7 +25,7 @@ const faqData = [
     {
         id: 5,
         question: "Can I use GmailGenius on mobile devices?",
-        answer: "Yes, GmailGenius is designed to be responsive and can be accessed on mobile devices, allowing you to manage your emails conveniently on the go."
+        answer: "No, GmailGenius works best on desktop computers. While we're continuously improving our service, the full functionality and optimal user experience are currently available on desktop platforms."
     }
 ];
 

@@ -25,7 +25,8 @@ const Avatar = ({ user }) => {
                 id="avatarButton"
                 type="button"
                 className="w-8 h-8 rounded-full cursor-pointer"
-                src={user.photoURL}
+                src={user && user.photoURL}
+                crossOrigin="anonymous"
                 alt="User dropdown"
             />
             <div id="userDropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-48 dark:bg-gray-700 dark:divide-gray-600">
@@ -34,8 +35,14 @@ const Avatar = ({ user }) => {
                     <div className="font-medium truncate">{user.email}</div>
                 </div>
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
-                    <li>
+                    {/* <li>
                         <Link to="/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
+                    </li> */}
+                    {/* <li>
+                        <Link to="/agent" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Agent</Link>
+                    </li> */}
+                    <li>
+                        <Link to="/" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Home</Link>
                     </li>
                     <li>
                         <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</Link>

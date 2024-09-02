@@ -1,106 +1,135 @@
 import os
-from datetime import datetime
-from crewai_tools.tools.base_tool import BaseTool
-from composio_crewai import App, ComposioToolSet
-from crewai import Agent, Task, Crew
-from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
-from typing import Dict
-import requests
+import re
+import glob
 import json
+from composio.client.collections import TriggerEventData
+from composio_crewai import Action, ComposioToolSet
+from crewai import Agent, Crew, Task, Process
+from crewai_tools.tools.base_tool import BaseTool
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+from typing import Any, Dict
+import requests
+from firebase.init import update_row
+from firebase.init import db
+# get_user_by_username
+from pathlib import Path
+
 load_dotenv()
 
-from langchain_google_genai import ChatGoogleGenerativeAI
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", verbose=True, temperature=0.5, google_api_key="AIzaSyCOWneGBRvrjtM4wwcL5bj1HPIOyxAG9Jg")
-
-def read_counter():
-    if not os.path.exists("counter.txt"):
-        return 0
-    with open("counter.txt", "r") as f:
-        return int(f.read() or 0)
-
-def write_counter():
-    current_value = read_counter()
-    new_value = current_value + 1
-    with open("counter.txt", "w") as f:
-        f.write(str(new_value))
-
-class ExtractorTool(BaseTool):
-    name: str = "Document Data Extractor"
-    description: str = "This tool extracts useful data from a document"
-
-    def _run(self) -> Dict[str, any]:
-        local_path = "./invoice.pdf"
-        url = os.getenv("NANO_URL")
-        auth = requests.auth.HTTPBasicAuth(os.getenv("NANO_API_KEY"), '')
-        files = {'file': open(local_path, 'rb')}
-
-        try:
-            response = requests.post(url, auth=auth, files=files)
-            response.raise_for_status() 
-            return json.loads(response.text)["result"][0]["prediction"]
-        except requests.exceptions.RequestException as e:
-            print(f"Error occurred while processing the document: {e}")
-            return {}
-
-# Define tools for the agents
-composio_toolset = ComposioToolSet()
-gmail_tools = composio_toolset.get_tools(apps=[App.GMAIL])
-googlesheets_tools = composio_toolset.get_tools(apps=[App.GOOGLESHEETS])
-Data_Extractor = ExtractorTool()
-tools = gmail_tools + googlesheets_tools + [Data_Extractor]
-
-def run_crew(emailKeywords: str, attributes: str, sheetId: str):
-    try:
-        gmail_agent = Agent(
-            role="Gmail and Google Sheets Integration Agent",
-            goal="""Efficiently process emails in Gmail, extract specific information from attachments, and organize data in Google Sheets. You will use Gmail and Google Sheets APIs to automate these tasks.""",
-            backstory = f'''You are an AI agent designed to streamline email processing and data management for users. Your primary functions are:
-            1. Search for specific emails in Gmail based on user-defined keywords (e.g., sender, subject, date range, email body).
-            2. Download attachments from identified emails to ./attachments directory with name {read_counter()}
-            3. Extract relevant information from various types of attachments (e.g., PDFs, spreadsheets, text files).
-            4. Organize and store extracted data in specified Google Sheets. ''',
-            verbose=True,
-            tools=tools,
-            cache=False,
-        )
-        task = Task(
-            description=f"""
-            1. Search Gmail:
-            - Keywords: {emailKeywords}
-            - Label: INBOX
-            - Limit search to recent emails (e.g., last 7 days)
-
-            2. Process found email(s):
-            - Download attachment(s) to ./attachments directory with name {read_counter()}
-            - Identify attachment type (PDF, spreadsheet, etc.)
-
-            3. Extract information:
-            - From attachment(s) in ./attachments directory with name {read_counter()}, extract the following attributes: {attributes}
-            - If multiple matching emails found, process the most recent one
-
-            4. Store in Google Sheets:
-            - Sheet ID: {sheetId}
-            - Starting cell: A{read_counter()}
-            - Format: Each attribute in a separate column
-
-            5. Error handling:
-            - If no matching email found, report back
-            - If attachment can't be processed, log the error and continue
-
-            6. Confirmation:
-            - After successful storage, confirm the number of attributes stored and their location in the sheet
-            """,
-            agent=gmail_agent,
-            expected_output=f"Successfully extracted and stored {len(attributes)} attributes in Google Sheet (ID: {sheetId}) starting from cell A{read_counter()}. Ready for next task."
-        )
-        crew = Crew(agents=[gmail_agent], tasks=[task], llm=llm, verbose=1)
-        result = crew.kickoff()
-        write_counter()
-        return result, 200  
-    except Exception as e:
-        print(f"Error in run_crew: {e}")
-        return str(e), 500  
+llm = ChatOpenAI(model="gpt-4o")
 
 
-run_crew("Invoice from abishkpatil@gmail.com, Apple TV", "invoice amount, invoice date", "1UEzR3FG9Jk6Vl_2RvTgHJuDbuzZXHDMl6yAIX3NDwJU")
+class incrementCounter(BaseTool):
+    name: str = "Increment Counter"
+    description: str = "This tool increments the counter value for a user"
+
+    def _run(self, uid: str, current_row: str) -> bool:
+        new_row = int(current_row) + 1
+        success = update_row(uid, str(new_row))
+        if success:
+            return f"Counter incremented. New row value: {new_row}"
+        else:
+            return "Failed to increment counter"
+
+
+# # Get the attachment that was recently downloaded
+# def get_recent_attachment() -> str:
+#     pdf_files = glob.glob(os.path.join("/Users/abhishekpatil/.composio/output/", "*.pdf")) # modify path as per need
+#     if not pdf_files:
+#         return None
+
+#     most_recent_pdf = max(pdf_files, key=os.path.getctime)
+#     return most_recent_pdf
+
+
+# Extract useful attributes from attachment
+class extractorTool(BaseTool):
+    name: str = "ExtractorTool"
+    description: str = "This tool extracts useful attributes from pdf document/attachments"
+
+    def _run(self, file_path: str) -> Dict[str, Any]:
+        url = os.environ.get("NANO_URL")
+        FilePath = {'file': open(file_path, 'rb')}
+        response = requests.post(url,
+                                 auth=requests.auth.HTTPBasicAuth(
+                                     os.environ.get("NANO_API_KEY"), ''),
+                                 files=FilePath)
+        return json.loads(response.text)["result"][0]["prediction"]
+
+
+# Trigger instance
+composio_toolset1 = ComposioToolSet(api_key=os.environ.get("COMPOSIO_API_KEY"))
+listener = composio_toolset1.create_trigger_listener()
+
+
+@listener.callback(filters={"trigger_name": "GMAIL_NEW_GMAIL_MESSAGE"})
+def callback_new_message(event: TriggerEventData) -> None:
+    print("Received new email")
+    payload = event.payload
+
+    def get_user_by_username(username):
+        users_ref = db.collection('users')
+        query = users_ref.where('username', '==', username).limit(1)
+        docs = query.get()
+
+        for doc in docs:
+            return doc.to_dict()
+
+        return False
+
+    user = get_user_by_username(event.metadata.connection.clientUniqueUserId)
+    keywords = user['sheetsConfig']['keywords']
+    attributes = user['sheetsConfig']['attributes']
+    sheetId = user['sheetsConfig']['spreadsheet_id']
+    sheetName = "Sheet1"
+    row = user['sheetsConfig']['row']
+    uid = user['uid']
+    # Tools
+    composio_toolset = ComposioToolSet(
+        api_key=os.environ.get("COMPOSIO_API_KEY"),
+        output_dir=Path.cwd() / "attachments",
+        entity_id=event.metadata.connection.clientUniqueUserId)
+    tools = composio_toolset.get_actions(actions=[
+        Action.GMAIL_GET_ATTACHMENT, Action.GOOGLESHEETS_BATCH_UPDATE
+    ]) + [extractorTool(), incrementCounter()]
+
+    # Agent
+    google_assistant = Agent(
+        role="Google Assistant",
+        goal=
+        "Process emails, check for keywords, download attachments, extract attributes, and store in Google Sheets",
+        backstory=
+        "You're an AI assistant that processes emails, extracts information from attachments, and stores data in Google Sheets.",
+        verbose=True,
+        llm=llm,
+        tools=tools,
+        allow_delegation=False,
+    )
+
+    process_new_email = Task(
+        description=f"""
+        1. Check if the email subject (subject) or body (messageText) in the payload contains any of these keywords: {keywords}, Payload: {payload}.
+        2. If keywords match, download the attachment using the GMAIL_GET_ATTACHMENT action.
+        3. Use the Extractor_tool, pass the file path of the downloaded attachment to extract content from it
+        4. From the extracted content, identify the following attributes: {attributes}.
+        5. Store the identified attributes in Google Sheet with ID {sheetId}, sheet name {sheetName}, in cell A{row}. Just add the attribute value and not the attribute name. Do not use includeValuesInResponse attribute.
+        6. Increment the row counter, if and only if you updated the Google Sheet otherwise do not increment the row counter. Use the IncrementCounter tool, pass the uid value: {uid} and current row value: {row} as arguments.
+        """,
+        agent=google_assistant,
+        expected_output=
+        "Summary of email processing, including whether keywords matched, attachment was processed, and data was stored in the Google Sheet.",
+    )
+
+    email_processing_crew = Crew(
+        agents=[google_assistant],
+        tasks=[process_new_email],
+        verbose=1,
+        process=Process.sequential,
+    )
+    result = email_processing_crew.kickoff()
+    return result
+
+
+print("Email trigger listener activated!")
+listener.listen()

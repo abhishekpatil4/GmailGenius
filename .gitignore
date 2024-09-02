@@ -8,8 +8,11 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .env
+backend/firebase/genius-57d8d-firebase-adminsdk-ue7u9-90656332c6.json
+backend/attachments
 
 backend/__pycache__
+backend/genius-57d8d-firebase-adminsdk-ue7u9-90656332c6.json
 
 node_modules
 dist
