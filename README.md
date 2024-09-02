@@ -6,6 +6,9 @@
 I developed GmailGenius because managing invoices felt like trying to find a needle in a haystack—while blindfolded! I was constantly losing track of due dates and getting hit with late fees, which turned my financial life into a chaotic mess. So, I thought, why not create an AI buddy to handle the email chaos?
 With GmailGenius, users can connect their Gmail, specify keywords, and let the AI scan for invoices, extracting all the important details straight into Google Sheets. I built the AI agents using CrewAI, which allowed me to create specialized agents tailored for this task. The real magic comes from [Composio](https://app.composio.dev)'s powerful [Gmail](https://app.composio.dev/app/gmail) and [Google Sheets](https://app.composio.dev/app/googlesheets) tools, which made integrating these features a breeze—just plug and play! Thanks to Composio, I could focus on creating a seamless user experience while my AI genius does the heavy lifting. Now you can say goodbye to late fees and hello to a more organized inbox!
 
+#### Checkout how others are using GmailGenius:
+[![Open in Dev.to](https://img.shields.io/badge/Open%20in-Dev.to-green?logo=dev.to&style=for-the-badge)](https://dev.to/composiodev/i-built-an-ai-tool-to-handle-my-moms-invoices-and-saved-her-20-hours-of-work-44h1)
+
 ## Demo
 ### Check it out on Replit
 [![Open in Replit](https://img.shields.io/badge/Open%20in-Replit-blue?logo=replit&style=for-the-badge)](https://replit.com/@abishkpatil/gmail-assistant-fb)
