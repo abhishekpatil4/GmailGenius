@@ -93,8 +93,4 @@ If you're prompted to login & enter API key, run the below command to login
 ```
 
 You'll be redirected to composio website, login, get the API key and paste it
-
-## 🛡️ License
-
-Composio is licensed under the Elastic License - see the [LICENSE](https://github.com/composiodev/composio/blob/master/LICENSE) file for details.
   
