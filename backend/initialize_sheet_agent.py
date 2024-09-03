@@ -74,7 +74,7 @@ def createSheet(entityId: str):
         1. Create a new Google Sheet titled '{sheetTitle}', batch update it with the following values starting in row 1 ie from A1: {attributes} (if more than one, then update in the next column ex: A2, A3...),
         2. Do not use includeValuesInResponse attribute. 
         3. Update the spreadsheet_id in the database for user with username: {username}
-        4. Send an email with recepient_email as: {email}, with subject {keywords} and body with dummy values for the following attributes: {attributes}. dont specify anything else apart from recipient_email, subject, body while sending email.
+        4. Send an email with recipient_email as: {email}, with subject {keywords} and body with dummy values for the following attributes: {attributes}. dont specify anything else apart from recipient_email, subject, body while sending email.
         """,
         agent=google_assistant,
         expected_output=
