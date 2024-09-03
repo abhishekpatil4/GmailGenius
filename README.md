@@ -8,6 +8,7 @@ With GmailGenius, users can connect their Gmail, specify keywords, and let the A
 
 #### Checkout how others are using GmailGenius:
 [![Open in Dev.to](https://img.shields.io/badge/Open%20in-Dev.to-green?logo=dev.to&style=for-the-badge)](https://dev.to/composiodev/i-built-an-ai-tool-to-handle-my-moms-invoices-and-saved-her-20-hours-of-work-44h1)
+[![Open in Reddit](https://img.shields.io/badge/Open%20in-Reddit-blue?logo=reddit&style=for-the-badge)](https://www.reddit.com/r/selfhosted/comments/1f7f8f4/i_built_an_ai_tool_to_handle_my_moms_invoices_and/)
 
 ## Demo
 ### Check it out on Replit
