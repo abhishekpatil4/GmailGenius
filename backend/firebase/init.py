@@ -2,8 +2,11 @@ import firebase_admin
 from firebase_admin import credentials, auth, firestore
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
-# cred = credentials.Certificate(f"{Path.cwd()}/firebase/genius-57d8d-firebase-adminsdk-ue7u9-90656332c6.json")
+load_dotenv()
+
+cred = credentials.Certificate(f"{Path.cwd()}/firebase/genius-57d8d-firebase-adminsdk-ue7u9-90656332c6.json")
 creds = {
     "type": os.environ.get("type"),
     "project_id": os.environ.get("project_id"),
@@ -17,6 +20,7 @@ creds = {
     os.environ.get("auth_provider_x509_cert_url"),
     "client_x509_cert_url": os.environ.get("client_x509_cert_url"),
 }
+# cred = credentials.Certificate(creds)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
