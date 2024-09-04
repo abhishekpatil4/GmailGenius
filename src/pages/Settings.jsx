@@ -142,7 +142,8 @@ const Settings = ({ user }) => {
             const idToken = await auth.currentUser.getIdToken(true);
             const data = {
                 username: user.email.split("@")[0],
-                appType: appType
+                appType: appType,
+                redirectUrl: window.location.href
             };
             const newEntityURL = import.meta.env.VITE_BACKEND_URL + "/newentity"
             const response = await axios.post(newEntityURL, data, {
