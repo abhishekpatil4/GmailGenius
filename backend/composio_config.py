@@ -75,7 +75,7 @@ def isEntityConnected(ent_id: str, appType: str):
         return response
 
 
-def createNewEntity(ent_id: str, appType: str):
+def createNewEntity(ent_id: str, appType: str, redirectUrl: str):
     toolset = ComposioToolSet(api_key=os.environ.get("COMPOSIO_API_KEY"),
                               entity_id=ent_id)
     entity = toolset.get_entity()
@@ -92,10 +92,9 @@ def createNewEntity(ent_id: str, appType: str):
 
     except NoItemsFound as e:
         # Create a request to initiate connection
-        redirect_url = os.environ.get("FRONTEND_URL") + "/settings"
         request = entity.initiate_connection(
             app_enum,
-            redirect_url=redirect_url)
+            redirect_url=redirectUrl)
         response = {
             "authenticated": "no",
             "message":
@@ -107,8 +106,3 @@ def createNewEntity(ent_id: str, appType: str):
         connected_account = request.wait_until_active(client=toolset.client,
                                                       timeout=100)
 
-
-# print(createNewEntity("default", "GMAIL"))
-# print(enable_gmail_trigger("default"))
-
-print(createNewEntity("abishkpatil", "GMAIL"))

@@ -37,14 +37,19 @@ class UserData(BaseModel):
     username: str
     appType: str
 
+class NewEntityData(BaseModel):
+    username: str
+    appType: str
+    redirectUrl: str
 
 @app.post("/newentity")
-async def handle_request(user_data: UserData,
+async def handle_request(user_data: NewEntityData,
                          decoded_token: dict = Depends(verify_token)):
     user_id = decoded_token['uid']
     username = user_data.username
     appType = user_data.appType
-    res = createNewEntity(username, appType)
+    redirectUrl = user_data.redirectUrl
+    res = createNewEntity(username, appType, redirectUrl)
     return res
 
 
